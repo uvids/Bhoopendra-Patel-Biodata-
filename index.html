@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Royal 3D Marriage Portfolio</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Swiper.js CSS for True 3D Coverflow -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-obsidian: #080604;
+      --gold-primary: #d4af37;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-obsidian);
+      color: #f8fafc;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-editorial { font-family: 'Cormorant Garamond', serif; }
+
+    #golden-dust-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    header, section, footer { position: relative; z-index: 10; }
+
+    .hero-cinematic-stage {
+      background: 
+        radial-gradient(circle at 50% 42%, rgba(212, 175, 55, 0.28) 0%, rgba(180, 83, 9, 0.12) 35%, rgba(8, 6, 4, 0.98) 72%),
+        linear-gradient(180deg, #080604 0%, #120d08 50%, #080604 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .groom-hero-portrait {
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 68%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 68%, rgba(0,0,0,0) 100%);
+      filter: contrast(1.06) brightness(0.96);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .floating-thumb-card {
+      background: rgba(20, 15, 10, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.15);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+    .floating-thumb-card:hover {
+      border-color: #fef08a;
+      transform: scale(1.08) translateY(-6px) !important;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(212, 175, 55, 0.45);
+    }
+
+    .luxury-3d-card {
+      background: linear-gradient(145deg, rgba(24, 19, 13, 0.82) 0%, rgba(12, 9, 6, 0.94) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      border-top: 1px solid rgba(254, 240, 138, 0.45);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
+      transform-style: preserve-3d;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .luxury-3d-card:hover {
+      border-color: rgba(212, 175, 55, 0.7);
+      box-shadow: 0 35px 70px -12px rgba(212, 175, 55, 0.22);
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fffbeb 0%, #fde047 35%, #d4af37 70%, #b45309 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn-luxury-gold {
+      background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #92400e 100%);
+      color: #080604;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 12px 30px -6px rgba(212, 175, 55, 0.55);
+      transition: all 0.3s ease;
+    }
+    .btn-luxury-gold:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 18px 40px -6px rgba(212, 175, 55, 0.85);
+    }
+
+    .swiper-coverflow-container { width: 100%; padding-top: 40px; padding-bottom: 65px; }
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 270px;
+      height: 390px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+    @media (min-width: 640px) {
+      .swiper-slide { width: 320px; height: 450px; }
+    }
+    .swiper-slide-active {
+      border: 2px solid #fde047;
+      box-shadow: 0 30px 75px rgba(212, 175, 55, 0.4);
+    }
+    .swiper-pagination-bullet { background: #78716c !important; opacity: 0.6; }
+    .swiper-pagination-bullet-active {
+      background: #d4af37 !important; opacity: 1; width: 22px !important; border-radius: 6px !important; transition: all 0.3s ease;
+    }
+
+    .orbit-scene {
+      width: 100%; height: 460px; perspective: 1400px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative; cursor: grab;
+    }
+    .orbit-scene:active { cursor: grabbing; }
+    .orbit-carousel {
+      width: 210px; height: 300px; position: relative;
+      transform-style: preserve-3d; transition: transform 0.15s ease-out;
+    }
+    .orbit-item {
+      position: absolute; width: 210px; height: 300px; left: 0; top: 0;
+      border-radius: 18px; overflow: hidden;
+      border: 1.5px solid rgba(212, 175, 55, 0.6);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.85);
+      background: #120d08; cursor: pointer;
+    }
+  </style>
+</head>
+<body class="selection:bg-amber-500 selection:text-black">
+
+  <!-- AMBIENT GOLDEN DUST PARTICLES -->
+  <canvas id="golden-dust-canvas"></canvas>
+
+  <!-- TOP NAVIGATION (Tap name 3 times for Secret Editor) -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-[#080604]/85 backdrop-blur-xl border-b border-amber-500/15 py-4 px-4 sm:px-10">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div onclick="triggerSecretEditor()" class="cursor-pointer select-none" title="Tap 3 times to open Secret Client Editor">
+        <span class="font-cinzel text-sm sm:text-lg font-bold tracking-[0.22em] text-amber-300 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+          <span id="navGroomName">AARAV SHARMA</span>
+        </span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-[11px] font-semibold tracking-[0.22em] text-stone-300 uppercase">
+        <a href="#home" class="text-amber-300 border-b border-amber-400 pb-1">PORTRAIT</a>
+        <a href="#biodata" class="hover:text-amber-300 transition">BIODATA</a>
+        <a href="#family" class="hover:text-amber-300 transition">FAMILY INTRO</a>
+        <a href="#gallery-section" class="hover:text-amber-300 transition">3D GALLERY</a>
+        <a href="#contact" class="hover:text-amber-300 transition">CONTACT</a>
+      </nav>
+      <a id="navWhatsappBtn" href="#contact" target="_blank" class="btn-luxury-gold text-[11px] px-4 py-2 rounded-full uppercase tracking-widest">
+        <i class="fa-brands fa-whatsapp mr-1"></i> Connect
+      </a>
+    </div>
+  </header>
+
+  <!-- 🌟 SECTION 1: CINEMATIC DEPTH HERO -->
+  <section id="home" class="hero-cinematic-stage min-h-screen pt-24 pb-14 px-4 flex flex-col justify-between relative">
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+      <span class="font-cinzel text-[15vw] font-extrabold text-amber-500/[0.03] tracking-widest whitespace-nowrap">
+        ROYAL PROFILE
+      </span>
+    </div>
+
+    <div class="max-w-7xl mx-auto w-full flex-1 grid lg:grid-cols-12 items-center gap-6 relative z-10 my-auto">
+
+      <!-- LEFT FLOATING THUMBNAILS -->
+      <div class="hidden lg:flex lg:col-span-3 flex-col items-end gap-6 pr-4">
+        <div onclick="openLightbox(1)" data-parallax="0.03" class="floating-thumb-card w-44 p-2 rounded-2xl cursor-pointer -rotate-3">
+          <div class="h-48 rounded-xl overflow-hidden">
+            <img id="sideThumb1" src="" class="w-full h-full object-cover" alt="Look 1" />
+          </div>
+          <div class="pt-2 px-1 flex justify-between items-center text-[10px] text-amber-200/90 font-medium">
+            <span id="sideCap1">01 • PORTRAIT</span>
+            <i class="fa-solid fa-expand text-amber-400"></i>
+          </div>
+        </div>
+
+        <div onclick="openLightbox(2)" data-parallax="0.05" class="floating-thumb-card w-48 p-2 rounded-2xl cursor-pointer translate-x-6 rotate-2">
+          <div class="h-52 rounded-xl overflow-hidden">
+            <img id="sideThumb2" src="" class="w-full h-full object-cover" alt="Look 2" />
+          </div>
+          <div class="pt-2 px-1 flex justify-between items-center text-[10px] text-amber-200/90 font-medium">
+            <span id="sideCap2">02 • TRADITIONAL</span>
+            <i class="fa-solid fa-expand text-amber-400"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER DEPTH PORTRAIT -->
+      <div class="lg:col-span-6 flex flex-col items-center justify-center relative">
+        <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-amber-500/20 blur-[90px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+        
+        <div class="relative w-72 sm:w-[410px] h-[420px] sm:h-[520px] rounded-t-full overflow-hidden border-t-2 border-x border-amber-400/40 shadow-[0_0_90px_rgba(212,175,55,0.25)] group">
+          <img id="heroMainPortrait" src="" alt="Main Portrait" class="groom-hero-portrait w-full h-full object-cover object-top group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#080604] via-transparent to-transparent"></div>
+        </div>
+
+        <div class="text-center -mt-16 relative z-20 space-y-2 px-3">
+          <div class="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-400/40 px-4 py-1 rounded-full text-[10px] tracking-[0.25em] uppercase text-amber-300 font-semibold">
+            ✨ Matrimonial Introduction • 2026
+          </div>
+          <h1 id="heroGroomName" class="font-cinzel text-3xl sm:text-5xl font-bold tracking-[0.18em] gold-gradient-text uppercase drop-shadow-2xl"></h1>
+          <p id="heroTagline" class="font-editorial italic text-lg sm:text-2xl text-stone-300"></p>
+          <div class="flex flex-wrap justify-center gap-3 pt-3">
+            <a href="#biodata" class="btn-luxury-gold text-xs px-6 py-3 rounded-full uppercase tracking-widest">
+              Explore Full Biodata
+            </a>
+            <a href="#gallery-section" class="bg-stone-900/90 hover:bg-stone-800 text-amber-200 border border-amber-500/40 text-xs px-6 py-3 rounded-full uppercase tracking-widest transition">
+              <i class="fa-solid fa-images mr-1.5 text-amber-400"></i> 3D Photo Gallery
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT FLOATING THUMBNAILS -->
+      <div class="hidden lg:flex lg:col-span-3 flex-col items-start gap-6 pl-4">
+        <div onclick="openLightbox(3)" data-parallax="0.04" class="floating-thumb-card w-48 p-2 rounded-2xl cursor-pointer -translate-x-4 rotate-3">
+          <div class="h-52 rounded-xl overflow-hidden">
+            <img id="sideThumb3" src="" class="w-full h-full object-cover" alt="Look 3" />
+          </div>
+          <div class="pt-2 px-1 flex justify-between items-center text-[10px] text-amber-200/90 font-medium">
+            <span id="sideCap3">03 • ETHNIC</span>
+            <i class="fa-solid fa-expand text-amber-400"></i>
+          </div>
+        </div>
+
+        <div onclick="openLightbox(4)" data-parallax="0.03" class="floating-thumb-card w-44 p-2 rounded-2xl cursor-pointer -rotate-2">
+          <div class="h-48 rounded-xl overflow-hidden">
+            <img id="sideThumb4" src="" class="w-full h-full object-cover" alt="Look 4" />
+          </div>
+          <div class="pt-2 px-1 flex justify-between items-center text-[10px] text-amber-200/90 font-medium">
+            <span id="sideCap4">04 • LIFESTYLE</span>
+            <i class="fa-solid fa-expand text-amber-400"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 🌟 SECTION 2: 3D BIODATA (NO HOROSCOPE, NO ANNUAL INCOME) -->
+  <section id="biodata" class="py-20 px-4 sm:px-8 max-w-7xl mx-auto space-y-12">
+    <div class="text-center space-y-2">
+      <span class="text-[11px] font-bold tracking-[0.3em] text-amber-400 uppercase">PERSONAL & PROFESSIONAL OVERVIEW</span>
+      <h2 class="font-cinzel text-3xl sm:text-5xl font-bold gold-gradient-text">The Profile Details</h2>
+      <p id="aboutBioParagraph" class="text-stone-300 text-xs sm:text-base max-w-2xl mx-auto leading-relaxed"></p>
+    </div>
+
+    <!-- 4 Quick 3D Highlight Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="luxury-3d-card tilt-card p-5 rounded-2xl text-center space-y-1">
+        <i class="fa-solid fa-calendar-check text-amber-400 text-xl"></i>
+        <p class="text-[11px] text-stone-400 uppercase tracking-wider">Date of Birth</p>
+        <p id="quickDob" class="font-cinzel text-base sm:text-lg font-bold text-white"></p>
+      </div>
+      <div class="luxury-3d-card tilt-card p-5 rounded-2xl text-center space-y-1">
+        <i class="fa-solid fa-ruler-vertical text-amber-400 text-xl"></i>
+        <p class="text-[11px] text-stone-400 uppercase tracking-wider">Height</p>
+        <p id="quickHeight" class="font-cinzel text-base sm:text-lg font-bold text-white"></p>
+      </div>
+      <div class="luxury-3d-card tilt-card p-5 rounded-2xl text-center space-y-1">
+        <i class="fa-solid fa-graduation-cap text-amber-400 text-xl"></i>
+        <p class="text-[11px] text-stone-400 uppercase tracking-wider">Education</p>
+        <p id="quickEducation" class="font-cinzel text-base sm:text-lg font-bold text-white"></p>
+      </div>
+      <div class="luxury-3d-card tilt-card p-5 rounded-2xl text-center space-y-1">
+        <i class="fa-solid fa-briefcase text-amber-400 text-xl"></i>
+        <p class="text-[11px] text-stone-400 uppercase tracking-wider">Work / Profession</p>
+        <p id="quickProfession" class="font-cinzel text-base sm:text-lg font-bold text-amber-300"></p>
+      </div>
+    </div>
+
+    <!-- 3 Detailed 3D Cards -->
+    <div class="grid lg:grid-cols-3 gap-6">
+      
+      <!-- Card 1: Personal Details -->
+      <div class="luxury-3d-card tilt-card rounded-3xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4">
+          <div class="w-11 h-11 rounded-2xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <div>
+            <h3 class="font-cinzel text-lg font-bold text-white">Personal Profile</h3>
+            <p class="text-[11px] text-amber-400/80">व्यक्तिगत विवरण</p>
+          </div>
+        </div>
+        <div id="personalDetailsList" class="space-y-3 text-xs sm:text-sm"></div>
+      </div>
+
+      <!-- Card 2: Education & Work Profession -->
+      <div class="luxury-3d-card tilt-card rounded-3xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4">
+          <div class="w-11 h-11 rounded-2xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div>
+            <h3 class="font-cinzel text-lg font-bold text-white">Education & Profession</h3>
+            <p class="text-[11px] text-amber-400/80">शिक्षा एवं कार्यक्षेत्र</p>
+          </div>
+        </div>
+        <div id="careerDetailsList" class="space-y-3 text-xs sm:text-sm"></div>
+      </div>
+
+      <!-- Card 3: Lifestyle & Values -->
+      <div class="luxury-3d-card tilt-card rounded-3xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center gap-3 border-b border-amber-500/20 pb-4">
+          <div class="w-11 h-11 rounded-2xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg">
+            <i class="fa-solid fa-gem"></i>
+          </div>
+          <div>
+            <h3 class="font-cinzel text-lg font-bold text-white">Lifestyle & Values</h3>
+            <p class="text-[11px] text-amber-400/80">जीवनशैली एवं रुचियाँ</p>
+          </div>
+        </div>
+        <div id="lifestyleDetailsList" class="space-y-3 text-xs sm:text-sm"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 🌟 SECTION 3: FAMILY INTRODUCTION -->
+  <section id="family" class="py-20 px-4 sm:px-8 max-w-7xl mx-auto space-y-12">
+    <div class="text-center space-y-2">
+      <span class="text-[11px] font-bold tracking-[0.3em] text-amber-400 uppercase">RESPECTED ROOTS</span>
+      <h2 class="font-cinzel text-3xl sm:text-5xl font-bold gold-gradient-text">Family Introduction</h2>
+      <p class="text-stone-400 text-xs sm:text-sm max-w-2xl mx-auto">परिवार का परिचय एवं पारिवारिक पृष्ठभूमि।</p>
+    </div>
+
+    <div id="familyCardsGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  </section>
+
+  <!-- 🌟 SECTION 4: 3D COVERFLOW & 360° ORBIT PHOTO GALLERY -->
+  <section id="gallery-section" class="py-20 px-4 sm:px-8 relative overflow-hidden bg-gradient-to-b from-[#080604] via-[#130e08] to-[#080604] border-y border-amber-500/20">
+    <div class="max-w-7xl mx-auto space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="space-y-2 text-center md:text-left">
+          <span class="text-[11px] font-bold tracking-[0.3em] text-amber-400 uppercase">3D INTERACTIVE SHOWCASE</span>
+          <h2 class="font-cinzel text-3xl sm:text-5xl font-bold gold-gradient-text">3D Photo Gallery</h2>
+          <p class="text-stone-400 text-xs sm:text-sm">फोटोज़ को स्वाइप करें, 360° ऑर्बिट में घुमाएं या किसी भी फोटो पर टैप करके Full-Screen में देखें।</p>
+        </div>
+
+        <div class="flex justify-center gap-3">
+          <button type="button" id="btnModeCoverflow" onclick="switchGalleryMode('coverflow')" class="btn-luxury-gold text-xs px-5 py-2.5 rounded-full cursor-pointer flex items-center gap-2">
+            <i class="fa-solid fa-layer-group"></i> 3D Coverflow
+          </button>
+          <button type="button" id="btnModeOrbit" onclick="switchGalleryMode('orbit')" class="bg-stone-900 text-amber-200 border border-amber-500/40 hover:bg-stone-800 text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer flex items-center gap-2 transition">
+            <i class="fa-solid fa-atom"></i> True 3D Orbit (360°)
+          </button>
+        </div>
+      </div>
+
+      <!-- MODE 1: 3D COVERFLOW -->
+      <div id="coverflowWrapper" class="relative">
+        <div class="swiper groomCoverflowSwiper swiper-coverflow-container">
+          <div class="swiper-wrapper" id="swiperSlidesContainer"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+        <button type="button" id="covPrevBtn" class="w-11 h-11 rounded-full bg-stone-900/90 border border-amber-400/50 text-amber-300 hover:bg-amber-400 hover:text-black transition flex items-center justify-center absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 cursor-pointer shadow-2xl">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button type="button" id="covNextBtn" class="w-11 h-11 rounded-full bg-stone-900/90 border border-amber-400/50 text-amber-300 hover:bg-amber-400 hover:text-black transition flex items-center justify-center absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 cursor-pointer shadow-2xl">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+
+       <!-- MODE 2: 360 ORBIT -->
+      <div id="orbitWrapper" class="hidden space-y-4">
+        <div class="text-center">
+          <span class="bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs px-4 py-1.5 rounded-full">
+            <i class="fa-solid fa-hand-pointer animate-bounce mr-1"></i> उंगली या माउस से घुमाएं • ज़ूम करने के लिए फोटो पर टैप करें
+          </span>
+        </div>
+        <div id="orbitStage" class="orbit-scene">
+          <div id="orbitCarousel" class="orbit-carousel"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 🌟 SECTION 5: FAMILY CONTACT & CREATOR PROMOTION BANNER (VEERU SHRIVAS) -->
+  <section id="contact" class="py-20 px-4 sm:px-8 max-w-5xl mx-auto space-y-10">
+    <div class="luxury-3d-card rounded-3xl p-8 sm:p-12 text-center space-y-6 relative overflow-hidden">
+      <span class="text-[11px] font-bold tracking-[0.3em] text-amber-400 uppercase">GET IN TOUCH</span>
+      <h2 class="font-cinzel text-2xl sm:text-4xl font-bold gold-gradient-text">Connect With Our Family</h2>
+      <p id="contactNoteText" class="text-stone-300 text-xs sm:text-base max-w-2xl mx-auto leading-relaxed"></p>
+      <p id="contactAddressText" class="text-amber-300/90 text-xs sm:text-sm font-medium"></p>
+
+      <div class="flex flex-wrap justify-center gap-4 pt-4">
+        <a id="callBtnLink" href="#" class="bg-stone-900 hover:bg-stone-800 text-white border border-amber-400/50 font-bold text-xs sm:text-sm px-7 py-4 rounded-2xl flex items-center gap-2.5 transition shadow-xl">
+          <i class="fa-solid fa-phone-volume text-amber-400"></i> <span id="callBtnText">Call Family</span>
+        </a>
+        <a id="whatsappBtnLink" href="#" target="_blank" class="btn-luxury-gold text-xs sm:text-sm px-8 py-4 rounded-2xl flex items-center gap-2.5">
+          <i class="fa-brands fa-whatsapp text-lg"></i> Send WhatsApp Message
+        </a>
+        <button type="button" onclick="window.print()" class="bg-stone-900/80 hover:bg-stone-800 text-amber-300 border border-amber-500/30 font-bold text-xs sm:text-sm px-6 py-4 rounded-2xl flex items-center gap-2 cursor-pointer transition">
+          <i class="fa-solid fa-print"></i> Print / Save PDF
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER WITH VEERU SHRIVAS PROMOTION -->
+  <footer class="py-12 px-4 text-center border-t border-amber-500/20 bg-gradient-to-b from-[#080604] to-[#120d06] space-y-8 relative z-10">
+    <p id="footerText" class="font-cinzel text-xs sm:text-sm tracking-[0.25em] text-amber-400/90 uppercase"></p>
+
+    <div class="max-w-xl mx-auto luxury-3d-card rounded-3xl p-6 sm:p-7 border border-amber-400/40 shadow-[0_0_50px_rgba(212,175,55,0.15)] space-y-4">
+      <div class="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-400/30 px-3.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-amber-300">
+        ✨ Want a Royal 3D Biodata Like This?
+      </div>
+      <p class="text-xs sm:text-sm text-stone-200 leading-relaxed font-medium">
+        क्या आप भी अपने या अपने परिवार के लिए ऐसा ही आकर्षक और प्रीमियम <span class="text-amber-300 font-bold">3D Marriage Biodata Portfolio</span> बनवाना चाहते हैं? आज ही संपर्क करें:
+      </p>
+      <p class="font-cinzel text-sm sm:text-base font-bold text-white tracking-wider">
+        Made with <span class="text-rose-500 animate-pulse inline-block">❤️</span> from <span class="gold-gradient-text text-base sm:text-lg">Veeru Shrivas</span>
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 pt-1">
+        <a href="tel:+919988110080" class="bg-stone-900 hover:bg-stone-800 text-amber-300 border border-amber-400/50 text-xs font-bold px-5 py-2.5 rounded-full flex items-center gap-2 transition shadow-lg">
+          <i class="fa-solid fa-phone-volume"></i> Call: 9988110080
+        </a>
+        <a href="https://wa.me/919988110080?text=नमस्ते%20वीरू%20जी,%20मैंने%20आपका%20बनाया%20हुआ%203D%20Marriage%20Biodata%20Portfolio%20देखा।%20मुझे%20भी%20ऐसा%20ही%20पोर्टफोलियो%20बनवाना%20है।" target="_blank" class="btn-luxury-gold text-xs px-5 py-2.5 rounded-full flex items-center gap-2 shadow-lg">
+          <i class="fa-brands fa-whatsapp text-sm"></i> Order on WhatsApp
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX POPUP MODAL -->
+  <div id="lightboxModal" class="hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <button type="button" onclick="closeLightbox()" class="fixed top-5 right-5 w-11 h-11 rounded-full bg-stone-900 border border-amber-400/50 text-amber-300 hover:bg-amber-400 hover:text-black font-bold text-lg flex items-center justify-center cursor-pointer z-50">✕</button>
+    <button type="button" onclick="stepLightbox(-1)" class="fixed left-3 sm:left-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-stone-900/90 border border-amber-400/50 text-amber-300 hover:bg-amber-400 hover:text-black flex items-center justify-center cursor-pointer z-50"><i class="fa-solid fa-chevron-left"></i></button>
+    <button type="button" onclick="stepLightbox(1)" class="fixed right-3 sm:right-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-stone-900/90 border border-amber-400/50 text-amber-300 hover:bg-amber-400 hover:text-black flex items-center justify-center cursor-pointer z-50"><i class="fa-solid fa-chevron-right"></i></button>
+
+    <div class="max-w-3xl w-full text-center space-y-3">
+      <div class="max-h-[80vh] rounded-3xl overflow-hidden border-2 border-amber-400/60 shadow-[0_0_80px_rgba(212,175,55,0.3)] inline-block">
+        <img id="lightboxImg" src="" alt="Full View" class="max-h-[78vh] w-auto object-contain mx-auto" />
+      </div>
+      <p id="lightboxCaption" class="font-cinzel text-sm sm:text-base text-amber-300 tracking-widest uppercase"></p>
+    </div>
+  </div>
+
+  <!-- 🌟 SECRET CLIENT EDITOR MODAL (Tap top name 3 times rapidly to open) -->
+  <div id="clientEditorModal" class="hidden fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-stone-900 border-2 border-amber-400 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 text-white my-auto shadow-2xl">
+      <div class="flex justify-between items-center border-b border-stone-800 pb-3">
+        <h3 class="font-cinzel text-lg font-bold text-amber-300">⚙️ Secret Client Editor (Instant Setup)</h3>
+        <button type="button" onclick="closeClientEditor()" class="w-8 h-8 rounded-full bg-stone-800 font-extrabold cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs max-h-[70vh] overflow-y-auto pr-2">
+        <div>
+          <label class="font-bold text-stone-300 block mb-1">Groom Name</label>
+          <input type="text" id="editGroomName" class="w-full bg-stone-950 border border-stone-700 rounded-xl px-3 py-2 text-white font-bold" />
+        </div>
+        <div>
+          <label class="font-bold text-stone-300 block mb-1">Tagline / Profession</label>
+          <input type="text" id="editTagline" class="w-full bg-stone-950 border border-stone-700 rounded-xl px-3 py-2 text-white font-bold" />
+        </div>
+        <div>
+          <label class="font-bold text-stone-300 block mb-1">About Bio Paragraph</label>
+          <textarea id="editAboutBio" rows="3" class="w-full bg-stone-950 border border-stone-700 rounded-xl px-3 py-2 text-white"></textarea>
+        </div>
+        <div>
+          <label class="font-bold text-stone-300 block mb-1">Main Portrait Image URL</label>
+          <input type="text" id="editMainPortrait" class="w-full bg-stone-950 border border-stone-700 rounded-xl px-3 py-2 text-white" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-stone-300 block mb-1">Contact Phone Display</label>
+            <input type="text" id="editPhoneDisplay" class="w-full bg-stone-950 border border-stone-700 rounded-xl px-3 py-2 text-white" />
+          </div>
+          <div>
+            <label class="font-bold text-stone-300 block mb-1">WhatsApp Number (with country code)</label>
+            <input type="text" id="editWhatsapp" class="w-full bg-stone-950 border border-stone-700 rounded-xl px-3 py-2 text-white" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-3 pt-2">
+        <button type="button" onclick="saveClientEditorData()" class="flex-1 btn-luxury-gold py-3 rounded-xl cursor-pointer text-xs uppercase tracking-widest">💾 Save & Apply Instantly</button>
+        <button type="button" onclick="resetClientEditorData()" class="bg-stone-800 hover:bg-stone-700 text-stone-300 px-4 py-3 rounded-xl cursor-pointer text-xs">Reset Default</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+  <!-- MASTER ENGINE & CLIENT CONFIG SCRIPT -->
+  <script>
+    const DEFAULT_CLIENT_DATA = {
+      groomName: "AARAV SHARMA",
+      tagline: "Software Engineer • B.Tech • Bhopal (M.P.)",
+      aboutBio: "आधुनिक सोच और पारंपरिक संस्कारों का सुंदर समन्वय। परिवार, आपसी सम्मान और जीवन के हर मोड़ पर साथ निभाने वाले मूल्यों में गहरा विश्वास।",
+      quickHighlights: { dob: "15 Aug 1998", height: "5' 11\" (Fair)", education: "B.Tech (CS)", profession: "Software Engineer" },
+      personalDetails: [
+        { label: "पूरा नाम (Full Name)", value: "आरव शर्मा (Aarav Sharma)" },
+        { label: "जन्म तिथि (Date of Birth)", value: "15 अगस्त 1998" },
+        { label: "ऊँचाई एवं रंग (Height)", value: "5 फीट 11 इंच • गोरा (Fair)" },
+        { label: "ब्लड ग्रुप (Blood Group)", value: "O+ (Positive)" },
+        { label: "गृह नगर (Hometown)", value: "छतरपुर / भोपाल (म.प्र.)" },
+        { label: "वैवाहिक स्थिति (Status)", value: "अविवाहित (Never Married)" }
+      ],
+      careerDetails: [
+        { label: "उच्च शिक्षा (Qualification)", value: "B.Tech in Computer Science" },
+        { label: "कॉलेज / संस्थान (Institute)", value: "RGPV University, Bhopal" },
+        { label: "कार्य / पद (Profession)", value: "Senior Software Engineer" },
+        { label: "कंपनी / विभाग (Organization)", value: "IT Consultancy Services" },
+        { label: "कार्यस्थल (Work Location)", value: "Bhopal / Hybrid" },
+        { label: "करियर दृष्टिकोण (Work Ethic)", value: "प्रगतिशील एवं स्थिर करियर" }
+      ],
+      lifestyleDetails: [
+        { label: "धर्म एवं समाज (Community)", value: "हिन्दू • ब्राह्मण परिवार" },
+        { label: "खान-पान (Dietary Habit)", value: "शुद्ध शाकाहारी (Pure Vegetarian)" },
+        { label: "आदतें (Lifestyle Habits)", value: "धूम्रपान एवं मद्यपान से पूर्णतः दूर" },
+        { label: "स्वभाव (Personality)", value: "शांत, मिलनसार एवं परिवार-प्रेमी" },
+        { label: "रुचियाँ (Hobbies)", value: "ट्रैवलिंग, फिटनेस, संगीत एवं रीडिंग" },
+        { label: "भाषा ज्ञान (Languages)", value: "हिंदी एवं अंग्रेजी" }
+      ],
+      familyMembers: [
+        { badge: "Father", icon: "fa-user-shield", name: "श्री राजेश शर्मा", role: "शासकीय सेवा / वरिष्ठ अधिकारी", desc: "सम्मानित एवं शांत व्यक्तित्व, परिवार के मुख्य मार्गदर्शक।" },
+        { badge: "Mother", icon: "fa-heart", name: "श्रीमती सुनीता शर्मा", role: "गृहिणी (Homemaker)", desc: "धार्मिक, स्नेही एवं पारिवारिक संस्कारों की आधारस्तंभ।" },
+        { badge: "Siblings", icon: "fa-users", name: "1 छोटी बहन", role: "उच्च शिक्षित (MBA)", desc: "परिवार में आपसी प्रेम, सहयोग और एकता का वातावरण।" },
+        { badge: "Native Place", icon: "fa-landmark-dome", name: "निवास एवं पैतृक स्थान", role: "छतरपुर / भोपाल (म.प्र.)", desc: "स्वयं का निवास एवं प्रतिष्ठित पारिवारिक पृष्ठभूमि।" }
+      ],
+      contact: {
+        phoneDisplay: "+91 98265-63564",
+        phoneDial: "+919826563564",
+        whatsappNumber: "919826563564",
+        whatsappMessage: "नमस्ते, हमने बायोडाटा पोर्टफोलियो देखा और आगे बातचीत करना चाहते हैं।",
+        address: "📍 निवास पता: सिविल लाइन्स, छतरपुर / भोपाल (मध्य प्रदेश)",
+        note: "यदि आपको प्रोफाइल एवं पारिवारिक पृष्ठभूमि अनुकूल लगे, तो परिवार से सीधे फोन या व्हाट्सएप पर संपर्क करने के लिए आपका हार्दिक स्वागत है।"
+      },
+      mainPortraitUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=1000&q=85",
+      galleryPhotos: [
+        { url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=900&q=85", title: "01 • Royal Portrait" },
+        { url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=900&q=85", title: "02 • Executive Look" },
+        { url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=85", title: "03 • Traditional Wear" },
+        { url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&q=85", title: "04 • Festive Occasion" },
+        { url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=900&q=85", title: "05 • Outdoor Shoot" },
+        { url: "https://images.unsplash.com/photo-1480429370139-e0132c086e2a?w=900&q=85", title: "06 • Formal Style" },
+        { url: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=900&q=85", title: "07 • Casual Elegance" },
+        { url: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=900&q=85", title: "08 • Travel Memories" },
+        { url: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=900&q=85", title: "09 • Family Wedding" },
+        { url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=900&q=85", title: "10 • Candid Moment" }
+      ]
+    };
+
+    let CLIENT_DATA = JSON.parse(localStorage.getItem("sdr_marriage_client")) || DEFAULT_CLIENT_DATA;
+
+    function renderPage() {
+      document.title = `${CLIENT_DATA.groomName} • Royal 3D Marriage Portfolio`;
+      document.getElementById("navGroomName").textContent = CLIENT_DATA.groomName;
+      document.getElementById("heroGroomName").textContent = CLIENT_DATA.groomName;
+      document.getElementById("heroTagline").textContent = CLIENT_DATA.tagline;
+      document.getElementById("aboutBioParagraph").textContent = CLIENT_DATA.aboutBio;
+      document.getElementById("heroMainPortrait").src = CLIENT_DATA.mainPortraitUrl;
+
+      for (let i = 1; i <= 4; i++) {
+        const p = CLIENT_DATA.galleryPhotos[i] || CLIENT_DATA.galleryPhotos[0];
+        document.getElementById(`sideThumb${i}`).src = p.url;
+        document.getElementById(`sideCap${i}`).textContent = p.title;
+      }
+
+      document.getElementById("quickDob").textContent = CLIENT_DATA.quickHighlights.dob;
+      document.getElementById("quickHeight").textContent = CLIENT_DATA.quickHighlights.height;
+      document.getElementById("quickEducation").textContent = CLIENT_DATA.quickHighlights.education;
+      document.getElementById("quickProfession").textContent = CLIENT_DATA.quickHighlights.profession;
+
+      function renderRows(containerId, items) {
+        document.getElementById(containerId).innerHTML = items.map((item, idx) => `
+          <div class="flex justify-between gap-2 py-1.5 ${idx < items.length - 1 ? 'border-b border-white/5' : ''}">
+            <span class="text-stone-400">${item.label}</span>
+            <span class="font-semibold text-white text-right">${item.value}</span>
+          </div>
+        `).join("");
+      }
+      renderRows("personalDetailsList", CLIENT_DATA.personalDetails);
+      renderRows("careerDetailsList", CLIENT_DATA.careerDetails);
+      renderRows("lifestyleDetailsList", CLIENT_DATA.lifestyleDetails);
+
+      document.getElementById("familyCardsGrid").innerHTML = CLIENT_DATA.familyMembers.map(f => `
+        <div class="luxury-3d-card tilt-card rounded-3xl p-6 space-y-3 border-l-4 border-l-amber-400">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] font-bold uppercase tracking-widest bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full">${f.badge}</span>
+            <i class="fa-solid ${f.icon} text-amber-400 text-xl"></i>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-white">${f.name}</h3>
+          <p class="text-xs text-amber-200/90 font-medium">${f.role}</p>
+          <p class="text-xs text-stone-400 leading-relaxed">${f.desc}</p>
+        </div>
+      `).join("");
+
+      const waUrl = `https://wa.me/${CLIENT_DATA.contact.whatsappNumber}?text=${encodeURIComponent(CLIENT_DATA.contact.whatsappMessage)}`;
+      document.getElementById("navWhatsappBtn").href = waUrl;
+      document.getElementById("whatsappBtnLink").href = waUrl;
+      document.getElementById("callBtnLink").href = `tel:${CLIENT_DATA.contact.phoneDial}`;
+      document.getElementById("callBtnText").textContent = `Call Family: ${CLIENT_DATA.contact.phoneDisplay}`;
+      document.getElementById("contactNoteText").textContent = CLIENT_DATA.contact.note;
+      document.getElementById("contactAddressText").textContent = CLIENT_DATA.contact.address;
+      document.getElementById("footerText").textContent = `👑 ${CLIENT_DATA.groomName} • ROYAL MATRIMONIAL PORTFOLIO 2026`;
+    }
+    renderPage();
+
+    // Secret Client Editor Logic
+    let tapCount = 0, tapTimer = null;
+    function triggerSecretEditor() {
+      tapCount++;
+      clearTimeout(tapTimer);
+      if (tapCount >= 3) {
+        tapCount = 0;
+        document.getElementById("editGroomName").value = CLIENT_DATA.groomName;
+        document.getElementById("editTagline").value = CLIENT_DATA.tagline;
+        document.getElementById("editAboutBio").value = CLIENT_DATA.aboutBio;
+        document.getElementById("editMainPortrait").value = CLIENT_DATA.mainPortraitUrl;
+        document.getElementById("editPhoneDisplay").value = CLIENT_DATA.contact.phoneDisplay;
+        document.getElementById("editWhatsapp").value = CLIENT_DATA.contact.whatsappNumber;
+        document.getElementById("clientEditorModal").classList.remove("hidden");
+        return;
+      }
+      tapTimer = setTimeout(() => { tapCount = 0; }, 3000);
+    }
+    function closeClientEditor() { document.getElementById("clientEditorModal").classList.add("hidden"); }
+    function saveClientEditorData() {
+      CLIENT_DATA.groomName = document.getElementById("editGroomName").value.trim();
+      CLIENT_DATA.tagline = document.getElementById("editTagline").value.trim();
+      CLIENT_DATA.aboutBio = document.getElementById("editAboutBio").value.trim();
+      CLIENT_DATA.mainPortraitUrl = document.getElementById("editMainPortrait").value.trim();
+      CLIENT_DATA.contact.phoneDisplay = document.getElementById("editPhoneDisplay").value.trim();
+      CLIENT_DATA.contact.whatsappNumber = document.getElementById("editWhatsapp").value.trim();
+      localStorage.setItem("sdr_marriage_client", JSON.stringify(CLIENT_DATA));
+      closeClientEditor();
+      location.reload();
+    }
+    function resetClientEditorData() {
+      localStorage.removeItem("sdr_marriage_client");
+      location.reload();
+    }
+
+    // Gallery & Lightbox Setup
+    const swiperWrapper = document.getElementById("swiperSlidesContainer");
+    const orbitCarousel = document.getElementById("orbitCarousel");
+    swiperWrapper.innerHTML = ""; orbitCarousel.innerHTML = "";
+
+    CLIENT_DATA.galleryPhotos.forEach((item, index) => {
+      const slide = document.createElement("div");
+      slide.className = "swiper-slide cursor-pointer group";
+      slide.onclick = () => openLightbox(index);
+      slide.innerHTML = `
+        <img src="${item.url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end justify-between p-4">
+          <div>
+            <p class="font-cinzel text-xs sm:text-sm font-bold text-amber-300 tracking-wider">${item.title}</p>
+            <p class="text-[10px] text-stone-300">Tap for Full HD View</p>
+          </div>
+          <span class="w-8 h-8 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </span>
+        </div>
+      `;
+      swiperWrapper.appendChild(slide);
+
+      const angle = (360 / CLIENT_DATA.galleryPhotos.length) * index;
+      const radius = window.innerWidth < 640 ? 280 : 420;
+      const orbitCard = document.createElement("div");
+      orbitCard.className = "orbit-item";
+      orbitCard.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+      orbitCard.onclick = () => openLightbox(index);
+      orbitCard.innerHTML = `
+        <img src="${item.url}" alt="${item.title}" class="w-full h-full object-cover" />
+        <div class="absolute bottom-0 inset-x-0 bg-black/80 p-2 text-center">
+          <span class="font-cinzel text-[11px] text-amber-300">${item.title}</span>
+        </div>
+      `;
+      orbitCarousel.appendChild(orbitCard);
+    });
+
+    new Swiper(".groomCoverflowSwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      loop: true,
+      autoplay: { delay: 3200, disableOnInteraction: false },
+      coverflowEffect: { rotate: 28, stretch: 0, depth: 260, modifier: 1, slideShadows: true },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: "#covNextBtn", prevEl: "#covPrevBtn" }
+    });
+
+    let orbitRotationY = 0, isOrbitActive = false;
+    function switchGalleryMode(mode) {
+      const covWrap = document.getElementById("coverflowWrapper");
+      const orbWrap = document.getElementById("orbitWrapper");
+      const btnCov = document.getElementById("btnModeCoverflow");
+      const btnOrb = document.getElementById("btnModeOrbit");
+      if (mode === "coverflow") {
+        isOrbitActive = false;
+        covWrap.classList.remove("hidden"); orbWrap.classList.add("hidden");
+        btnCov.className = "btn-luxury-gold text-xs px-5 py-2.5 rounded-full cursor-pointer flex items-center gap-2";
+        btnOrb.className = "bg-stone-900 text-amber-200 border border-amber-500/40 hover:bg-stone-800 text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer flex items-center gap-2 transition";
+      } else {
+        isOrbitActive = true;
+        covWrap.classList.add("hidden"); orbWrap.classList.remove("hidden");
+        btnOrb.className = "btn-luxury-gold text-xs px-5 py-2.5 rounded-full cursor-pointer flex items-center gap-2";
+        btnCov.className = "bg-stone-900 text-amber-200 border border-amber-500/40 hover:bg-stone-800 text-xs font-bold px-5 py-2.5 rounded-full cursor-pointer flex items-center gap-2 transition";
+      }
+    }
+
+    const orbitStage = document.getElementById("orbitStage");
+    let isDraggingOrbit = false, startOrbitX = 0;
+    orbitStage.addEventListener("mousedown", (e) => { isDraggingOrbit = true; startOrbitX = e.clientX; });
+    window.addEventListener("mouseup", () => { isDraggingOrbit = false; });
+    window.addEventListener("mousemove", (e) => {
+      if (!isDraggingOrbit) return;
+      orbitRotationY += (e.clientX - startOrbitX) * 0.35;
+      orbitCarousel.style.transform = `rotateY(${orbitRotationY}deg)`;
+      startOrbitX = e.clientX;
+    });
+    orbitStage.addEventListener("touchstart", (e) => { isDraggingOrbit = true; startOrbitX = e.touches[0].clientX; });
+    window.addEventListener("touchend", () => { isDraggingOrbit = false; });
+    window.addEventListener("touchmove", (e) => {
+      if (!isDraggingOrbit) return;
+      orbitRotationY += (e.touches[0].clientX - startOrbitX) * 0.45;
+      orbitCarousel.style.transform = `rotateY(${orbitRotationY}deg)`;
+      startOrbitX = e.touches[0].clientX;
+    });
+
+    function animateOrbitLoop() {
+      requestAnimationFrame(animateOrbitLoop);
+      if (isOrbitActive && !isDraggingOrbit) {
+        orbitRotationY -= 0.18;
+        orbitCarousel.style.transform = `rotateY(${orbitRotationY}deg)`;
+      }
+    }
+    animateOrbitLoop();
+
+    let currentLightboxIndex = 0;
+    function openLightbox(index) {
+      currentLightboxIndex = index;
+      const item = CLIENT_DATA.galleryPhotos[currentLightboxIndex];
+      document.getElementById("lightboxImg").src = item.url;
+      document.getElementById("lightboxCaption").textContent = item.title;
+      document.getElementById("lightboxModal").classList.remove("hidden");
+    }
+    function closeLightbox() { document.getElementById("lightboxModal").classList.add("hidden"); }
+    function stepLightbox(dir) {
+      currentLightboxIndex = (currentLightboxIndex + dir + CLIENT_DATA.galleryPhotos.length) % CLIENT_DATA.galleryPhotos.length;
+      openLightbox(currentLightboxIndex);
+    }
+
+    document.addEventListener("mousemove", (e) => {
+      const x = (window.innerWidth / 2 - e.clientX) / 25;
+      const y = (window.innerHeight / 2 - e.clientY) / 25;
+      document.querySelectorAll("[data-parallax]").forEach((el) => {
+        const speed = parseFloat(el.getAttribute("data-parallax")) * 25;
+        el.style.transform = `translate3d(${x * speed}px, ${y * speed}px, 0)`;
+      });
+    });
+
+    if (typeof VanillaTilt !== "undefined") {
+      VanillaTilt.init(document.querySelectorAll(".tilt-card"), { max: 10, speed: 400, glare: true, "max-glare": 0.18 });
+    }
+
+    const canvas = document.getElementById("golden-dust-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    for (let i = 0; i < 65; i++) {
+      particles.push({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 0.5, dx: (Math.random() - 0.5) * 0.35,
+        dy: -Math.random() * 0.45 - 0.1, alpha: Math.random() * 0.65 + 0.2
+      });
+    }
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(253, 224, 71, ${p.alpha})`;
+        ctx.shadowBlur = 10; ctx.shadowColor = "#d4af37"; ctx.fill();
+        p.x += p.dx; p.y += p.dy;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  </script>
+</body>
+</html>
