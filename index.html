@@ -40,7 +40,6 @@
 
     header, section, footer { position: relative; z-index: 10; }
 
-    /* Romantic Deep Red & Blue Gradient Stage */
     .romance-hero-stage {
       background: 
         radial-gradient(circle at 50% 35%, rgba(225, 29, 72, 0.22) 0%, rgba(30, 27, 75, 0.25) 45%, rgba(13, 6, 18, 0.98) 75%),
@@ -49,12 +48,11 @@
     }
 
     .groom-portrait-frame {
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
       filter: drop-shadow(0 0 30px rgba(244, 63, 94, 0.35));
     }
 
-    /* Luxury Glassmorphism Cards with Red/Pink Glow */
     .glass-romance {
       background: linear-gradient(135deg, rgba(26, 15, 35, 0.85) 0%, rgba(13, 6, 18, 0.95) 100%);
       backdrop-filter: blur(20px);
@@ -114,6 +112,7 @@
 </head>
 <body class="selection:bg-rose-500 selection:text-white">
 
+  <!-- BACKGROUND FLOATING HEARTS CANVAS -->
   <canvas id="romance-canvas"></canvas>
 
   <!-- TOP NAVIGATION WITH LANGUAGE TOGGLE -->
@@ -127,7 +126,6 @@
       </div>
 
       <div class="flex items-center gap-4">
-        <!-- 🌐 Language Switcher Button -->
         <button type="button" onclick="toggleLanguage()" class="bg-slate-900/90 text-rose-300 border border-rose-500/40 hover:bg-slate-800 text-xs font-bold px-3 py-1.5 rounded-full cursor-pointer transition shadow-lg flex items-center gap-1.5">
           <i class="fa-solid fa-globe"></i> <span id="langBtnText">हिंदी / ENG</span>
         </button>
@@ -139,22 +137,22 @@
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section id="home" class="romance-hero-stage min-h-screen pt-24 pb-14 px-4 flex flex-col justify-between relative">
+  <!-- HERO SECTION (Fixed layout so 2026 badge is never cut) -->
+  <section id="home" class="romance-hero-stage min-h-screen pt-28 pb-14 px-4 flex flex-col justify-between relative">
     <div class="max-w-7xl mx-auto w-full flex-1 grid lg:grid-cols-12 items-center gap-6 relative z-10 my-auto">
       
       <div class="lg:col-span-6 lg:col-start-4 flex flex-col items-center justify-center relative text-center">
         <div class="w-80 h-80 sm:w-96 sm:h-96 rounded-full bg-rose-500/20 blur-[120px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
         
-        <div class="relative w-72 sm:w-[390px] h-[410px] sm:h-[490px] rounded-t-full overflow-hidden border-t-2 border-x border-rose-400/50 shadow-[0_0_80px_rgba(244,63,94,0.3)] group mb-6">
+        <div class="relative w-72 sm:w-[390px] h-[380px] sm:h-[460px] rounded-t-full overflow-hidden border-t-2 border-x border-rose-400/50 shadow-[0_0_80px_rgba(244,63,94,0.3)] group mb-4">
           <img id="heroMainPortrait" src="" alt="Portrait" class="groom-portrait-frame w-full h-full object-cover object-top group-hover:scale-105 transition duration-500" />
           <div class="absolute inset-0 bg-gradient-to-t from-[#0d0612] via-transparent to-transparent"></div>
         </div>
 
-        <div class="space-y-3 px-3">
-          <span class="bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[10px] font-bold tracking-[0.25em] px-4 py-1.5 rounded-full uppercase">
+        <div class="space-y-3 px-3 mt-2">
+          <div class="inline-block bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[10px] font-bold tracking-[0.25em] px-4 py-1.5 rounded-full uppercase">
             ✨ <span data-i18n="verifiedProfile">Verified Matrimonial Profile • 2026</span>
-          </span>
+          </div>
           <h1 id="heroGroomName" class="font-playfair text-3xl sm:text-5xl font-extrabold tracking-wide rose-gradient-text uppercase"></h1>
           <p id="heroTagline" class="text-slate-300 text-sm sm:text-base italic font-light"></p>
           <div class="flex flex-wrap justify-center gap-3 pt-3">
@@ -269,45 +267,71 @@
     <img id="lightboxImg" src="" class="max-h-[80vh] max-w-full rounded-2xl border border-rose-500/50 object-contain shadow-[0_0_50px_rgba(244,63,94,0.4)]" />
   </div>
 
-<!-- SECURED CLIENT EDITOR MODAL (FULLY LOADED WITH ALL FIELDS) -->
+  <!-- 🛠️ FULLY LOADED COMPREHENSIVE CLIENT EDITOR MODAL -->
   <div id="clientEditorModal" class="hidden fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-slate-900 border border-rose-500/50 rounded-3xl max-w-xl w-full p-6 space-y-4 text-white shadow-[0_0_50px_rgba(244,63,94,0.2)]">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 class="font-playfair text-base font-bold text-rose-300">⚙️ Comprehensive Client Editor</h3>
-        <button type="button" onclick="closeClientEditor()" class="font-bold text-slate-400 cursor-pointer">✕</button>
+        <h3 class="font-playfair text-base font-bold text-rose-300">⚙️ Fully Loaded Client Editor</h3>
+        <button type="button" onclick="closeClientEditor()" class="font-bold text-slate-400 cursor-pointer text-base">✕</button>
       </div>
 
-      <div class="space-y-3 text-xs max-h-[65vh] overflow-y-auto pr-2">
-        <div class="grid grid-cols-2 gap-3">
-          <div><label class="block mb-1 font-bold">Groom Name (English)</label><input type="text" id="editNameEn" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" /></div>
-          <div><label class="block mb-1 font-bold">Groom Name (Hindi)</label><input type="text" id="editNameHi" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" /></div>
+      <div class="space-y-4 text-xs max-h-[70vh] overflow-y-auto pr-2">
+        <!-- Groom Names -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div><label class="block mb-1 font-bold text-slate-300">Groom Name (EN)</label><input type="text" id="editNameEn" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
+          <div><label class="block mb-1 font-bold text-slate-300">Groom Name (HI)</label><input type="text" id="editNameHi" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
         </div>
         
-        <div class="grid grid-cols-2 gap-3">
-          <div><label class="block mb-1 font-bold">Tagline (English)</label><input type="text" id="editTagEn" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" /></div>
-          <div><label class="block mb-1 font-bold">Tagline (Hindi)</label><input type="text" id="editTagHi" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" /></div>
+        <!-- Taglines -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div><label class="block mb-1 font-bold text-slate-300">Tagline (EN)</label><input type="text" id="editTagEn" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
+          <div><label class="block mb-1 font-bold text-slate-300">Tagline (HI)</label><input type="text" id="editTagHi" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div><label class="block mb-1 font-bold">Bio (English)</label><textarea id="editBioEn" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"></textarea></div>
-          <div><label class="block mb-1 font-bold">Bio (Hindi)</label><textarea id="editBioHi" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"></textarea></div>
+        <!-- Bios -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div><label class="block mb-1 font-bold text-slate-300">Bio Summary (EN)</label><textarea id="editBioEn" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs"></textarea></div>
+          <div><label class="block mb-1 font-bold text-slate-300">Bio Summary (HI)</label><textarea id="editBioHi" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs"></textarea></div>
         </div>
 
-        <div><label class="block mb-1 font-bold">Main Portrait Image URL</label><input type="text" id="editMainPortrait" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" /></div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div><label class="block mb-1 font-bold">Phone Display</label><input type="text" id="editPhone" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" /></div>
-          <div><label class="block mb-1 font-bold">WhatsApp Number</label><input type="text" id="editWa" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" /></div>
+        <!-- Main Portrait URL -->
+        <div>
+          <label class="block mb-1 font-bold text-slate-300">Main Portrait Image URL</label>
+          <input type="text" id="editMainPortrait" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" />
+        </div>
+ <!-- Quick Highlights -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div><label class="block mb-1 font-bold text-slate-300">DOB</label><input type="text" id="editDob" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-white text-xs" /></div>
+          <div><label class="block mb-1 font-bold text-slate-300">Height</label><input type="text" id="editHeight" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-white text-xs" /></div>
+          <div><label class="block mb-1 font-bold text-slate-300">Education</label><input type="text" id="editEdu" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-white text-xs" /></div>
+          <div><label class="block mb-1 font-bold text-slate-300">Profession</label><input type="text" id="editProf" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-white text-xs" /></div>
         </div>
 
+        <!-- Father & Mother Details -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 border-t border-slate-800 pt-3">
+          <div><label class="block mb-1 font-bold text-rose-300">Father Name (HI/EN)</label><input type="text" id="editFatherName" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
+          <div><label class="block mb-1 font-bold text-rose-300">Father Role / Job</label><input type="text" id="editFatherRole" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div><label class="block mb-1 font-bold text-rose-300">Mother Name (HI/EN)</label><input type="text" id="editMotherName" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
+          <div><label class="block mb-1 font-bold text-rose-300">Mother Role / Job</label><input type="text" id="editMotherRole" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
+        </div>
+
+        <!-- Contacts -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 border-t border-slate-800 pt-3">
+          <div><label class="block mb-1 font-bold text-slate-300">Phone Display</label><input type="text" id="editPhone" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
+          <div><label class="block mb-1 font-bold text-slate-300">WhatsApp Number</label><input type="text" id="editWa" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" /></div>
+        </div>
+
+        <!-- Gallery Photos -->
         <div>
           <label class="block mb-1 font-bold text-rose-400">🖼️ Gallery Photo URLs (One URL per line)</label>
           <textarea id="editGalleryUrls" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-[11px]" placeholder="Paste direct image URLs here..."></textarea>
         </div>
       </div>
 
-      <div class="flex gap-2 pt-2">
-        <button type="button" onclick="saveCurrentProfileData()" class="flex-1 btn-romance-glow py-3 rounded-xl text-xs font-bold uppercase tracking-wider">💾 Save Changes</button>
+      <div class="pt-2">
+        <button type="button" onclick="saveCurrentProfileData()" class="w-full btn-romance-glow py-3 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer">💾 Save Changes</button>
       </div>
     </div>
   </div>
@@ -461,7 +485,6 @@
       const data = CLIENT_PROFILE[currentLang] || CLIENT_PROFILE["en"];
       const t = i18n[currentLang];
 
-      // Update static text elements
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
         if(t[key]) el.textContent = t[key];
@@ -516,7 +539,7 @@
 
     // 🔒 SECURED PIN & EDITOR LOGIC
     let tapCount = 0, tapTimer = null;
-    const ADMIN_SECRET_PIN = "9988"; // गुप्त पिन
+    const ADMIN_SECRET_PIN = "9988";
 
     function triggerSecretEditor() {
       tapCount++; clearTimeout(tapTimer);
@@ -533,6 +556,21 @@
           document.getElementById("editBioEn").value = dEn.aboutBio;
           document.getElementById("editBioHi").value = dHi.aboutBio;
           document.getElementById("editMainPortrait").value = CLIENT_PROFILE.mainPortraitUrl;
+          
+          document.getElementById("editDob").value = dEn.quickHighlights.dob;
+          document.getElementById("editHeight").value = dEn.quickHighlights.height;
+          document.getElementById("editEdu").value = dEn.quickHighlights.education;
+          document.getElementById("editProf").value = dEn.quickHighlights.profession;
+
+          if(dEn.familyMembers[0]) {
+            document.getElementById("editFatherName").value = dEn.familyMembers[0].name;
+            document.getElementById("editFatherRole").value = dEn.familyMembers[0].role;
+          }
+          if(dEn.familyMembers[1]) {
+            document.getElementById("editMotherName").value = dEn.familyMembers[1].name;
+            document.getElementById("editMotherRole").value = dEn.familyMembers[1].role;
+          }
+
           document.getElementById("editPhone").value = dEn.contact.phoneDisplay;
           document.getElementById("editWa").value = dEn.contact.whatsappNumber;
           document.getElementById("editGalleryUrls").value = CLIENT_PROFILE.galleryPhotos.map(g => g.url).join("\n");
@@ -554,6 +592,40 @@
       CLIENT_PROFILE.hi.aboutBio = document.getElementById("editBioHi").value;
       CLIENT_PROFILE.mainPortraitUrl = document.getElementById("editMainPortrait").value;
       
+      const dob = document.getElementById("editDob").value;
+      const height = document.getElementById("editHeight").value;
+      const edu = document.getElementById("editEdu").value;
+      const prof = document.getElementById("editProf").value;
+
+      [CLIENT_PROFILE.en, CLIENT_PROFILE.hi].forEach(langObj => {
+        langObj.quickHighlights.dob = dob;
+        langObj.quickHighlights.height = height;
+        langObj.quickHighlights.education = edu;
+        langObj.quickHighlights.profession = prof;
+      });
+
+      const fName = document.getElementById("editFatherName").value;
+      const fRole = document.getElementById("editFatherRole").value;
+      const mName = document.getElementById("editMotherName").value;
+      const mRole = document.getElementById("editMotherRole").value;
+
+      if(CLIENT_PROFILE.en.familyMembers[0]) {
+        CLIENT_PROFILE.en.familyMembers[0].name = fName;
+        CLIENT_PROFILE.en.familyMembers[0].role = fRole;
+      }
+      if(CLIENT_PROFILE.hi.familyMembers[0]) {
+        CLIENT_PROFILE.hi.familyMembers[0].name = fName;
+        CLIENT_PROFILE.hi.familyMembers[0].role = fRole;
+      }
+      if(CLIENT_PROFILE.en.familyMembers[1]) {
+        CLIENT_PROFILE.en.familyMembers[1].name = mName;
+        CLIENT_PROFILE.en.familyMembers[1].role = mRole;
+      }
+      if(CLIENT_PROFILE.hi.familyMembers[1]) {
+        CLIENT_PROFILE.hi.familyMembers[1].name = mName;
+        CLIENT_PROFILE.hi.familyMembers[1].role = mRole;
+      }
+
       const phone = document.getElementById("editPhone").value;
       const wa = document.getElementById("editWa").value;
       CLIENT_PROFILE.en.contact.phoneDisplay = phone;
@@ -591,8 +663,7 @@
       orbitCard.innerHTML = `<img src="${item.url}" class="w-full h-full object-cover" />`;
       orbitCarousel.appendChild(orbitCard);
     });
-
-    new Swiper(".groomCoverflowSwiper", {
+new Swiper(".groomCoverflowSwiper", {
       effect: "coverflow", grabCursor: true, centeredSlides: true, slidesPerView: "auto", loop: true,
       coverflowEffect: { rotate: 25, stretch: 0, depth: 200, modifier: 1, slideShadows: true },
       pagination: { el: ".swiper-pagination", clickable: true },
@@ -625,22 +696,56 @@
       document.getElementById("lightboxModal").classList.remove("hidden");
     }
     function closeLightbox() { document.getElementById("lightboxModal").classList.add("hidden"); }
-// Floating Rose Petals Canvas Animation
+
+    // 🌟 FLOATING RED HEARTS CANVAS ANIMATION
     const canvas = document.getElementById("romance-canvas");
     const ctx = canvas.getContext("2d");
     let parts = [];
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     resize(); window.addEventListener("resize", resize);
-    for(let i=0; i<45; i++) parts.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2+1, dy: -Math.random()*0.3-0.1, dx: (Math.random()-0.5)*0.2, alpha: Math.random()*0.5+0.2});
+
+    for(let i=0; i<35; i++) {
+      parts.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 0.4 + 0.25,
+        dy: -Math.random() * 0.5 - 0.2,
+        dx: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.6 + 0.3
+      });
+    }
+
+    function drawHeart(ctx, x, y, size, alpha) {
+      ctx.beginPath();
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(size, size);
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(0, -3, -5, -15, -12, -15);
+      ctx.bezierCurveTo(-22, -15, -22, -2, -22, -2);
+      ctx.bezierCurveTo(-22, 10, -12, 18, 0, 25);
+      ctx.bezierCurveTo(12, 18, 22, 10, 22, -2);
+      ctx.bezierCurveTo(22, -2, 22, -15, 12, -15);
+      ctx.bezierCurveTo(5, -15, 0, -3, 0, 0);
+      ctx.fillStyle = `rgba(244, 63, 94, ${alpha})`;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = "#f43f5e";
+      ctx.fill();
+      ctx.restore();
+    }
+
     function anim() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       parts.forEach(p => {
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(244,63,94,${p.alpha})`; ctx.fill();
-        p.y += p.dy; p.x += p.dx;
-        if(p.y < 0) p.y = canvas.height;
-        if(p.x < 0) p.x = canvas.width;
-        if(p.x > canvas.width) p.x = 0;
+        drawHeart(ctx, p.x, p.y, p.size, p.alpha);
+        p.y += p.dy;
+        p.x += p.dx;
+        if (p.y < -20) {
+          p.y = canvas.height + 20;
+          p.x = Math.random() * canvas.width;
+        }
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
       });
       requestAnimationFrame(anim);
     }
